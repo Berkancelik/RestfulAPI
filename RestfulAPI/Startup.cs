@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RestfulAPI.DataContext;
 using RestfulAPI.Repository;
+using RestfulAPI.Service;
 
 namespace RestfulAPI
 {
@@ -22,6 +23,7 @@ namespace RestfulAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPostService, PostManager>();
             services.AddScoped(typeof(IGenericRepository<>),typeof(EfRepository<>));
             services.AddDbContext<Context>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Connection")));

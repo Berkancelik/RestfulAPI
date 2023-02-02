@@ -61,10 +61,9 @@ namespace RestfulAPI.Repository
 
             if (model == null)
                 return null;
-            var response = _context.Entry(model);
-            response.State = EntityState.Modified;
+            _context.Entry(model).CurrentValues.SetValues(entity);
             _context.SaveChanges();
-            result = response.Entity;
+            result = model;
             return result;
         }
     }
